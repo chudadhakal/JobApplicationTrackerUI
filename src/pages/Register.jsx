@@ -1,33 +1,99 @@
-
 import { useState } from "react";
-
 import { Link, useNavigate } from "react-router-dom";
 
-import { registerUser } from "../api/authApi";
-
 function Register() {
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
-    const submitHandler = (e) => {
-        e.preventDefault();
-        alert("Registering user: " + name + ", " + email + ", " + password);
-    };
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
+  const submitHandlerRegister = async (e) => {
+    e.preventDefault();
+
+    if (!firstName || !lastName || !email || !password) {
+      alert("Please fill in all fields");
+      return;
+    }
+
+    try {
+      const response = await fetch("http://localhost:5093/api/User/CreateUser", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          firstName: firstName,
+          lastName: lastName,
+          email: email,
+          password: password
+        })
+      });
+
+      const text = await response.text();
+      const data = text ? JSON.parse(text) : null;
+
+      if (!response.ok) {
+        alert(data?.message || "Registration failed");
+        return;
+      }
+
+      alert("Account created successfully");
+      navigate("/login");
+    } catch (error) {
+      console.error("Register error:", error);
+      alert("Something went wrong while registering.");
+    }
+  };
 
   return (
-    <div  className="registerForm">
+    <div>
+      <h1>Register Page</h1>
 
-        <h1>Register Page</h1>
-        <p>This is the register page.</p>
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" value={name} onChange={(e) => setName(e.target.value)} required/> <br/>
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" value={email} placeholder="Enter your email" onChange={(e) => setEmail(e.target.value)} required/> <br/>
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} required/> <br/>
-        <button type="submit" onClick={submitHandler}>Register</button>
+      <form onSubmit={submitHandlerRegister}>
+        <input
+          type="text"
+          value={firstName}
+          onChange={(e) => setFirstName(e.target.value)}
+          placeholder="First Name"
+        />
+
+        <br />
+
+        <input
+          type="text"
+          value={lastName}
+          onChange={(e) => setLastName(e.target.value)}
+          placeholder="Last Name"
+        />
+
+        <br />
+
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Email"
+        />
+
+        <br />
+
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="Password"
+        />
+
+        <br />
+
+        <button type="submit">Register</button>
+      </form>
+
+      <p style={{ marginTop: "16px" }}>
+        Already have an account? <Link to="/login">Login</Link>
+      </p>
     </div>
   );
 }

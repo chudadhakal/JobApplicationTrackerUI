@@ -38,7 +38,7 @@ function Login() {
       localStorage.setItem("userId", data.user.id);
       localStorage.setItem("email", data.user.email);
 
-      navigate("/dashboard");
+      window.location.href = "/dashboard";
     } catch (error) {
       console.error("Login error:", error);
       alert("Something went wrong while logging in.");

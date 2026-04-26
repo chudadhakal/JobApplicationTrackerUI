@@ -7,20 +7,22 @@ import Login from "../pages/Login";
 import Dashboard from "../pages/Dashboard";
 import Register from "../pages/Register";
 
+
 function AppRoutes() {
+  const isAuthenticated = !!localStorage.getItem("userId");
+
   return (
     <Routes>
-      {/* If user goes to "/", send them automatically to "/login" */}
       <Route path="/" element={<Navigate to="/login" replace />} />
-
-      {/* Show Login page when URL is /login */}
-      <Route path="/login" element={<Login />} />
-
-      {/* Show Register page when URL is /register */}
+      <Route
+        path="/login"
+        element={isAuthenticated ? <Navigate to="/dashboard" replace /> : <Login />}
+      />
       <Route path="/register" element={<Register />} />
-
-      {/* Show Dashboard page when URL is /dashboard */}
-      <Route path="/dashboard" element={<Dashboard />} />
+      <Route
+        path="/dashboard"
+        element={isAuthenticated ? <Dashboard /> : <Navigate to="/login" replace />}
+      />
     </Routes>
   );
 }

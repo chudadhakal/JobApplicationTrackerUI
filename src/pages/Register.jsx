@@ -48,52 +48,47 @@ function Register() {
   };
 
   return (
-    <div>
+    <div className="container mt-4">
+      <div className="mx-auto w-50 border p-3">
       <h1>Register Page</h1>
 
       <form onSubmit={submitHandlerRegister}>
         <input
+        className="form-control"
           type="text"
           value={firstName}
           onChange={(e) => setFirstName(e.target.value)}
           placeholder="First Name"
         />
-
-        <br />
-
         <input
+          className="form-control"
           type="text"
           value={lastName}
           onChange={(e) => setLastName(e.target.value)}
           placeholder="Last Name"
         />
 
-        <br />
-
         <input
+          className="form-control"  
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Email"
         />
-
-        <br />
-
         <input
+          className="form-control"
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Password"
         />
 
-        <br />
-
-        <button type="submit">Register</button>
+        <button className="btn btn-primary" type="submit">Register</button>
       </form>
 
       <p style={{ marginTop: "16px" }}>
         Already have an account? <Link to="/login">Login</Link>
-      </p>
+      </p></div>
     </div>
   );
 }

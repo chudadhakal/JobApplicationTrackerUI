@@ -1,13 +1,9 @@
 // Import Link so user can move back to login
 import { Link } from "react-router-dom";
 import { useState } from "react";
+// navigation to move user to dashboard after login
+import { useNavigate } from "react-router-dom";
 function Dashboard() {
-  const logOut = () => {
-    localStorage.removeItem("userId");
-    localStorage.removeItem("email");
-    window.location.href = "/login";
-  }
-
   const [applications, setApplications] = useState([]);
 
   // Show logged in user's data by userid
@@ -29,24 +25,31 @@ function Dashboard() {
       return;
     }
 
-    
+
     setApplications(data);
   }
   fetchApplications();
 
   return (
     <div>
-      <h1>Dashboard</h1>
-      <p>Welcome to the dashboard.</p>
-      <button onClick={logOut}>Log Out</button>
-      <div>
-        <table>
+      <div className="container bg-info p-2 mb-3">
+        <h1>Dashboard</h1>
+      </div>
+
+      <div className="container">
+        <div className="d-flex justify-content-end align-items-center mb-4">
+          <Link to="/dashboard/add-application" className="btn btn-primary">Add New Application</Link>
+        </div>
+
+        <table className="table table-hover">
           <thead>
+            <tr>
             <th>Position</th>
             <th>Company</th>
             <th>Status</th>
             <th>Application Date</th>
             <th>Notes</th>
+            </tr>
           </thead>
           <tbody>
             {applications.map((app) => (

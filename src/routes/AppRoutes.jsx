@@ -6,6 +6,7 @@ import Login from "../pages/Login";
 
 import Dashboard from "../pages/Dashboard";
 import Register from "../pages/Register";
+import NewApplication from "../pages/NewApplication";
 
 
 function AppRoutes() {
@@ -23,7 +24,10 @@ function AppRoutes() {
         path="/dashboard"
         element={isAuthenticated ? <Dashboard /> : <Navigate to="/login" replace />}
       />
+    <Route path="/dashboard/add-application" element={isAuthenticated ? <NewApplication /> : <Navigate to="/login" replace />} />
+
     </Routes>
+
   );
 }
 

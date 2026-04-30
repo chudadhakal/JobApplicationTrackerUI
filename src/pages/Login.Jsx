@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+//navigation to move user to dashboard after login
 
 function Login() {
   const navigate = useNavigate();
@@ -46,13 +47,14 @@ function Login() {
   };
 
   return (
-    <div>
+    <div className="container">
       <h1>Login Page</h1>
 
-      <form onSubmit={submitHandlerLogin}>
+      <form onSubmit={submitHandlerLogin} width="300px" style={{ maxWidth: "400px", margin: "0 auto" }} >
         <input
           type="email"
           value={email}
+          className="form-control"
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Email"
         />
@@ -62,13 +64,16 @@ function Login() {
         <input
           type="password"
           value={password}
+          className="form-control"
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Password"
         />
 
         <br />
 
-        <button type="submit">Login</button>
+        <button 
+        className = "btn btn-primary"
+         type="submit">Login</button>
       </form>
 
       <p style={{ marginTop: "16px" }}>

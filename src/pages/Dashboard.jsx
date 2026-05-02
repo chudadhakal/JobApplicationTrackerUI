@@ -48,7 +48,7 @@ function Dashboard() {
             <th>Company</th>
             <th>Status</th>
             <th>Application Date</th>
-            <th>Notes</th>
+            <th>Action</th>
             </tr>
           </thead>
           <tbody>
@@ -58,7 +58,11 @@ function Dashboard() {
                 <td>{app.companyName}</td>
                 <td>{app.status}</td>
                 <td>{app.applicationDate}</td>
-                <td>{app.notes}</td>
+                <td>
+                  <Link to={`/dashboard/view-application/${app.id}`} className="btn btn-info btn-sm">
+                    View
+                  </Link>
+                </td>
               </tr>
             ))}
           </tbody>
